@@ -1,0 +1,53 @@
+clear
+#echo "================================="
+#git log --format=oneline -n 3
+#echo "================================="
+
+# Get last commit and check for associated tags
+LAST_COMMIT_ID=$(git log --format=oneline -n 1 | head -n1 | awk '{print $1;}' 2>&1)
+echo "LAST_COMMIT_ID: $LAST_COMMIT_ID"
+
+LAST_COMMIT_VERSION=$(git describe --exact-match $LAST_COMMIT_ID 2>&1)
+echo "LAST_COMMIT_VERSION: $LAST_COMMIT_VERSION"
+
+# if there no new commits then pass, otherwise create a new version tag
+if ! [[ "$LAST_COMMIT_VERSION" =~ .*"no tag".* ]]; then
+    echo 'Current version is up to date.'
+    CURRENT_VERSION=$(git describe --exact-match $LAST_COMMIT_ID 2>&1)
+    echo "CURRENT_VERSION: $CURRENT_VERSION"
+else
+    # get las stable version commit ID and version
+    echo 'New commit detected, creating new version tag'
+    LAST_STABLE_VERSION_COMMIT_ID=$(git log --format=oneline | sed -n '2 p' | head -n1 | awk '{print $1;}' 2>&1)
+    echo "LAST_STABLE_VERSION_COMMIT_ID: $LAST_STABLE_VERSION_COMMIT_ID"
+    LAST_STABLE_VERSION=$(git describe --exact-match $LAST_STABLE_VERSION_COMMIT_ID 2>&1)
+    echo "LAST_STABLE_VERSION: $LAST_STABLE_VERSION"
+    MAJOR=$(echo $LAST_STABLE_VERSION | sed -n '2 p' | head -n1 | awk '{print $1;}'  2>&1)
+    IFS='.'
+    read -ra VERSION <<< "$LAST_STABLE_VERSION"
+    MAJOR=${VERSION[0]}
+    MINOR=${VERSION[1]}
+    PATCH=${VERSION[2]}
+
+    # get commit message
+    COMMIT_MSG=$(git show -s --format=%B $LAST_COMMIT_ID 2>&1)
+    echo "COMMIT_MSG: $COMMIT_MSG"
+
+    if [[ "$COMMIT_MSG" =~ .*"feat:".* ]]; then
+        git tag "$MAJOR.$(( $MINOR + 1 )).0" -m "Release Version $MAJOR.$(( $MINOR + 1 )).0"
+        echo 'feat detected' 
+    elif  [[ "$COMMIT_MSG" =~ .*"fix:".* ]]; then
+        git tag "$MAJOR.$MINOR.$(( $PATCH + 1 ))" -m "Release Version $MAJOR.$MINOR.$(( $PATCH + 1 ))"
+        echo 'fix detected'
+    elif  [[ "$COMMIT_MSG" =~ .*"chore:".* ]]; then
+        git tag "$MAJOR.$MINOR.$(( $PATCH + 1 ))" -m "Release Version $MAJOR.$MINOR.$(( $PATCH + 1 ))"
+        echo 'chore detected'
+    else
+        echo 'Invalid release action: please use chore or fix to bump patch version, or feat to bump minor version'
+        echo 'E.g: fix: this release fixes some bugs and improve performance'
+    fi
+fi
+
+#func get_last_stable_version (){
+#    echo
+#    }
