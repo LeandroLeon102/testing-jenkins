@@ -4,9 +4,9 @@ apt update
 apt install wget -y
 echo "done!"
 echo "downloading gitversion 5.12.0 from github.com/GitTools/GitVersion..."
-wget https://github.com/GitTools/GitVersion/releases/download/5.12.0/gitversion-linux-x64-5.12.0.tar.gz
+wget https://github.com/GitTools/GitVersion/releases/download/6.0.0-beta.3/gitversion-linux-x64-6.0.0-beta.3.tar.gz
 echo "installing gitversion..."
-tar -xvzf gitversion-linux-x64-5.12.0.tar.gz
+tar -xvzf gitversion-linux-x64-6.0.0-beta.3.tar.gz
 mv gitversion /bin/gitversion
-rm gitversion-linux-x64-5.12.0.tar.gz
+rm gitversion-linux-x64-6.0.0-beta.3.tar.gz
 echo "gitversion installed!"

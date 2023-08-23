@@ -23,7 +23,6 @@ pipeline {
             steps {
                 dir('repo') {
                     sh 'pwd; ls'
-                    sh 'git config --global --add safe.directory /var/jenkins_home/workspace/version-bump/repo'
                     sh 'gitversion'
                 }
 
