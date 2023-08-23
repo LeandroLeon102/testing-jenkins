@@ -9,4 +9,5 @@ echo "installing gitversion..."
 tar -xvzf gitversion-linux-x64-6.0.0-beta.3.tar.gz
 mv gitversion /bin/gitversion
 rm gitversion-linux-x64-6.0.0-beta.3.tar.gz
+apt install libicu-dev
 echo "gitversion installed!"
