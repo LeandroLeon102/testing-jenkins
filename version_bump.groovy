@@ -10,10 +10,23 @@ pipeline {
                     branches: [[
                         name: '*/main'
                     ]],
+                    extensions: [cloneOption(honorRefspec: true, noTags: false, reference: 'repo', shallow: false), localBranch('main'), pruneStaleBranch(), [$class: 'RelativeTargetDirectory', relativeTargetDir: 'repo']],
                     userRemoteConfigs: [[
                         url: 'https://github.com/LeandroLeon102/testing-jenkins'
                     ]]
                 ])
+            }
+        }
+
+
+        stage('run gitversion') {
+            steps {
+                dir('repo') {
+                    sh 'pwd; ls'
+                    sh 'git config --global --add safe.directory /var/jenkins_home/workspace/version-bump/repo'
+                    sh 'gitversion'
+                }
+
             }
         }
     }
