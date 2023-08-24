@@ -1,5 +1,5 @@
 --- 
-commitizen: 
+commitizen:
   name: cz_customize
   customize:
 #    message_template: "{{change_type}}:{% if show_message %} {{message}}{% endif %}"
