@@ -40,5 +40,4 @@ commitizen:
   update_changelog_on_bump: false
   version_provider: scm
   version_scheme: semver
-  annotated_tag: false 
-  
+  annotated_tag: false
