@@ -41,3 +41,4 @@ commitizen:
   version_provider: scm
   version_scheme: semver
   annotated_tag: false
+ 
