@@ -1,6 +1,6 @@
 --- 
 commitizen:
-  name: cz_customize 
+  name: cz_customize
   customize:
 #    message_template: "{{change_type}}:{% if show_message %} {{message}}{% endif %}"
 #    example: 'feature: this feature enable customize through config file'
