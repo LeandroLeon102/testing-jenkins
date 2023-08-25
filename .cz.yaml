@@ -5,10 +5,10 @@ commitizen:
 #    message_template: "{{change_type}}:{% if show_message %} {{message}}{% endif %}"
 #    example: 'feature: this feature enable customize through config file'
     schema: "<type>: <body>"
-    schema_pattern: "(major|break|feat|fix|hotfix):(\\s.*)"
-    bump_pattern: "^(break|feat|fix|hotfix)"
-    commit_parser: "^(?P<change_type>feature|bug fix):\\s(?P<message>.*)?"
-    changelog_pattern: "^(feature|bug fix)?(!)?" 
+    schema_pattern: "^(break|feat|fix):(\\s.*)"
+    bump_pattern: "^(break|feat|fix):(\\s.*)"
+    commit_parser: "^(?P<change_type>break|feat|fix):\\s(?P<message>.*)?"
+    changelog_pattern: "^(feat|fix)" 
     change_type_map:
       feature: Feat
       bug fix: Fix
