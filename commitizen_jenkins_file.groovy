@@ -17,7 +17,7 @@ pipeline {
                 ])
             }
         }
-
+        
         stage('version bump'){
             steps {
                 dir('repo') {
@@ -25,13 +25,19 @@ pipeline {
                     sh 'git tag'
                     script {
                         def status = sh(returnStatus: true, script: "cz bump")
-                        if (status != 0) {
+                        if (status == 21) {
+                            message """
+                                Last Commit message has no valid action for version bump. Forcing minor version bump...
+                            """
                             sh 'git commit --allow-empty -m "fix: force patch version bump - no valid action in last commit message"'
                             sh 'cz bump'
                         }
                     }
                     sh 'git log --format=oneline'
                     sh 'git tag'
+                    sh 'git remote set-url origin git@github.com:LeandroLeon102/testing-jenkins ; git config --global --add safe.directory /var/jenkins_home/workspace/commitizen-test/repo'
+                    sh 'git push --set-upstream origin main'
+                    sh 'git push origin --tags'
                 }
             }
         }
