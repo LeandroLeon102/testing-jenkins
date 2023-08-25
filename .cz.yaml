@@ -37,7 +37,7 @@ commitizen:
 #      name: show_message
 #      message: Do you want to add body message in commit?
   tag_format: $version
-  update_changelog_on_bump: true
+  update_changelog_on_bump: false
   version_provider: scm
   version_scheme: semver
   annotated_tag: false
