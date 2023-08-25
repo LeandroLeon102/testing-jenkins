@@ -8,7 +8,7 @@ commitizen:
     schema_pattern: "(major|break|feat|fix|hotfix):(\\s.*)"
     bump_pattern: "^(break|feat|fix|hotfix)"
     commit_parser: "^(?P<change_type>feature|bug fix):\\s(?P<message>.*)?"
-    changelog_pattern: "^(feature|bug fix)?(!)?"
+    changelog_pattern: "^(feature|bug fix)?(!)?" 
     change_type_map:
       feature: Feat
       bug fix: Fix
