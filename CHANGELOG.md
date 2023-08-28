@@ -1,3 +1,10 @@
+## 3.0.1 (2023-08-28)
+
+### Fix
+
+- configuring commitizen
+- update config
+
 ## 3.0.0 (2023-08-25)
 
 ## 2.0.1 (2023-08-25)
