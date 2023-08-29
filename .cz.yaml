@@ -1,27 +1,26 @@
 --- 
 commitizen:
+  version: 0.1.0
   name: cz_customize
   customize:
-#    message_template: "{{change_type}}:{% if show_message %} {{message}}{% endif %}"
-#    example: 'feature: this feature enable customize through config file'
-    schema: "<type>: <body>"
-    schema_pattern: "^(break|feat|fix):(\\s.*)"
-    bump_pattern: "^(break|feat|fix):(\\s.*)"
-    commit_parser: "^(?P<change_type>break|feat|fix):\\s(?P<message>.*)?"
-    changelog_pattern: "^(break|feat|fix)" 
+    schema: "<type>(?:<scope>): <body>"
+    schema_pattern: "^(break|feat|fix|chore)(?:.*):(\\s.*)"
+    bump_pattern: "^(break|feat|fix)(?:.*):(\\s.*)"
+    changelog_pattern: "^((break|feat|fix|chore)(?:.*):\\s)?(.*)"
+    commit_parser: "^((?P<change_type>break|feat|fix|chore)(?P<scope>.*):\\s)?(?P<message>.*)"
     change_type_map:
-      feat: Feat
-      fix: Fix
+      break: "Breaking changes"
+      feat: "Features"
+      fix: "Fixes"
+      chore: "Chores"
+      ~ : "Other Changes"
     bump_map:
       break: MAJOR
       feat: MINOR
       fix: PATCH
-      hotfix: PATCH
-      major: MAJOR
-    change_type_order: ["BREAKING CHANGE", "feat", "fix", "refactor", "perf"]
+    change_type_order: ["Breaking changes", "Features", "Fixes", "Chores", "Other Changes"]
   tag_format: $version
   update_changelog_on_bump: true
   version_provider: scm
   version_scheme: semver
   annotated_tag: false
- 
